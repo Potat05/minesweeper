@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import SegmentDisplay from "./SegmentDisplay.svelte";
 
 
 
@@ -15,6 +16,8 @@
     export let width: number = 30;
     export let height: number = 16;
     export let numMines: number = 99;
+
+    let flagsLeft: number = 0;
 
 
 
@@ -156,7 +159,14 @@
         if(tile.type == TileType.Open) return;
         tile.type = (tile.type == TileType.Covered) ? TileType.Flagged : TileType.Covered;
 
-        if(numFlaggedMines() == numMines) {
+
+        const numFlaggedMines = tiles.reduce((count, tile) => {
+            return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
+        }, 0);
+
+        flagsLeft = numMines - numFlaggedMines;
+
+        if(flagsLeft == 0) {
             state = GameState.Won;
         }
 
@@ -164,25 +174,14 @@
 
 
 
-    function numFlaggedMines(): number {
-        return tiles.reduce((count, tile) => {
-            return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
-        }, 0);
-    }
-
-
-
     function reset(): void {
         state = GameState.Waiting;
         tilesEmpty();
+        flagsLeft = numMines;
     }
 
     onMount(() => {
-
-        state = GameState.Waiting;
-        tiles = new Array(width * height);
-        tilesEmpty();
-
+        reset();
     });
 
 </script>
@@ -206,7 +205,7 @@
 
     .toparea {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         
         background-color: #C6C6C6;
@@ -214,6 +213,13 @@
         outline-offset: -6px;
         padding: 12px;
         width: calc(100% - 24px);
+    }
+
+    .display {
+        height: 46px;
+
+        margin: 2px;
+        outline: 2px inset #FFFFFF;
     }
 
     .button {
@@ -300,10 +306,14 @@
 <div class="game">
 
     <div class="toparea">
+        <div class="display">
+            <SegmentDisplay numDigits={3} bind:number={flagsLeft}/>
+        </div>
         <button
             class="button"
             on:click={reset}
         >😊</button>
+        <div></div>
     </div>
 
     <div
