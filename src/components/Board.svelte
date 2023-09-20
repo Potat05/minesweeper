@@ -340,7 +340,15 @@
         <button
             class="button"
             on:click={reset}
-        >😊</button>
+        >
+            {#if state == GameState.Waiting || state == GameState.Generated}
+                😊
+            {:else if state == GameState.Won}
+                😎
+            {:else if state == GameState.Lost}
+                😵
+            {/if}
+        </button>
         <div class="display">
             <SegmentDisplay numDigits={3} bind:number={currentTime}/>
         </div>
