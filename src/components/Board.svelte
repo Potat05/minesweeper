@@ -31,7 +31,7 @@
         type: TileType;
     }
 
-    let tiles: Tile[];
+    let tiles: Tile[] = [];
 
     function get(x: number, y: number): Tile {
         if(x < 0 || x >= width || y < 0 || y >= height) return { x, y, isMine: false, type: TileType.Open };
@@ -172,6 +172,11 @@
 
 
 
+    function reset(): void {
+        state = GameState.Waiting;
+        tilesEmpty();
+    }
+
     onMount(() => {
 
         state = GameState.Waiting;
@@ -184,11 +189,68 @@
 
 <style>
 
+    .game {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background-color: #C6C6C6;
+        outline: 6px outset #FFFFFF;
+        outline-offset: -6px;
+        padding: 12px;
+        gap: 6px;
+
+        width: fit-content;
+    }
+
+
+    .toparea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        background-color: #C6C6C6;
+        outline: 6px inset #FFFFFF;
+        outline-offset: -6px;
+        padding: 12px;
+        width: calc(100% - 24px);
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 48px;
+        height: 48px;
+
+        background-color: #C6C6C6;
+        outline: 4px outset #FFFFFF;
+        outline-offset: -4px;
+
+        font-size: x-large;
+    }
+
+    .button:active {
+        outline-style: inset;
+    }
+
+    .button:hover {
+        background-color: #ABABAB;
+    }
+
+
     .board {
         display: grid;
 
         width: fit-content;
+
+        background-color: #C6C6C6;
+        outline: 6px inset #FFFFFF;
+        outline-offset: -6px;
+        padding: 6px;
     }
+
 
     .tile {
         display: flex;
@@ -235,9 +297,19 @@
 
 </style>
 
-{#if tiles}
+<div class="game">
 
-    <div class="board" style="grid-template-columns: repeat({width}, 1fr); grid-template-rows: repeat({height}, 1fr);">
+    <div class="toparea">
+        <button
+            class="button"
+            on:click={reset}
+        >😊</button>
+    </div>
+
+    <div
+        class="board"
+        style="grid-template-columns: repeat({width}, 1fr); grid-template-rows: repeat({height}, 1fr);"
+    >
 
         {#each tiles as tile}
 
@@ -266,4 +338,4 @@
         
     </div>
 
-{/if}
+</div>
