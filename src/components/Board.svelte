@@ -203,9 +203,6 @@
         outline-offset: -4px;
 
         cursor: pointer;
-
-        font-family: 'Alagard';
-        font-size: large;
     }
 
     .opened {
@@ -213,6 +210,27 @@
         outline-offset: -2px;
 
         cursor: default;
+
+        font-family: 'Alagard';
+        font-size: x-large;
+        font-weight: 900;
+    }
+
+    .mines-nearby-1::before { content: "1"; color: blue; }
+    .mines-nearby-2::before { content: "2"; color: green; }
+    .mines-nearby-3::before { content: "3"; color: red; }
+    .mines-nearby-4::before { content: "4"; color: darkblue; }
+    .mines-nearby-5::before { content: "5"; color: darkred; }
+    .mines-nearby-6::before { content: "6"; color: teal; }
+    .mines-nearby-7::before { content: "7"; color: black; }
+    .mines-nearby-8::before { content: "8"; color: gray; }
+
+    .flagged::before {
+        content: "🚩";
+    }
+
+    .exploded::before {
+        content: "💥";
     }
 
 </style>
@@ -226,8 +244,10 @@
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
-                class="tile"
+                class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
                 class:opened={tile.type == TileType.Open}
+                class:flagged={tile.type == TileType.Flagged}
+                class:exploded={tile.isMine && tile.type == TileType.Open}
                 on:click={ev => {
                     ev.preventDefault();
 
@@ -240,17 +260,7 @@
                     tileFlag(tile.x, tile.y);
                     tile = get(tile.x, tile.y);
                 }}
-            >
-                {#if tile.type == TileType.Open}
-                    {#if tile.isMine}
-                        💥
-                    {:else if minesNearby(tile.x, tile.y) > 0}
-                        {minesNearby(tile.x, tile.y)}
-                    {/if}
-                {:else if tile.type == TileType.Flagged}
-                    🚩
-                {/if}
-            </div>
+            />
                 
         {/each}
         
