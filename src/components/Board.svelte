@@ -106,6 +106,7 @@
         } while(minesNearby(safeX, safeY) > 0);
 
         state = GameState.Generated;
+        start();
 
     }
 
@@ -127,6 +128,7 @@
 
             if(get(x, y).isMine) {
                 state = GameState.Lost;
+                stop();
                 return;
             }
     
@@ -168,16 +170,42 @@
 
         if(flagsLeft == 0) {
             state = GameState.Won;
+            stop();
         }
 
     }
 
 
 
+
+
+
+    let timerID: number = -1;
+    let startTime: number = 0;
+    let currentTime: number = 0;
+
+    function stepTimer(): void {
+        clearTimeout(timerID);
+
+        timerID = setTimeout(() => stepTimer(), 1000);
+        currentTime = Math.floor((Date.now() - startTime) / 1000);
+    }
+
+    function start(): void {
+        startTime = Date.now();
+        stepTimer();
+    }
+
+    function stop(): void {
+        clearTimeout(timerID);
+    }
+
     function reset(): void {
         state = GameState.Waiting;
         tilesEmpty();
         flagsLeft = numMines;
+        stop();
+        currentTime = 0;
     }
 
     onMount(() => {
@@ -313,7 +341,9 @@
             class="button"
             on:click={reset}
         >😊</button>
-        <div></div>
+        <div class="display">
+            <SegmentDisplay numDigits={3} bind:number={currentTime}/>
+        </div>
     </div>
 
     <div
