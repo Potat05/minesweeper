@@ -25,7 +25,7 @@
     .segment {
         background-color: black;
 
-        fill: darkred;
+        fill: url(#off-fill);
         stroke: black;
         stroke-width: 0.25;
 
@@ -41,8 +41,18 @@
 
 {#each digits as digit}
     
-    <!-- TODO: Redo this SVG, It's too thin and hard to see. -->
     <svg xmlns="http://www.w3.org/2000/svg" width="192" height="320" viewBox="-1 -1 12 20" class="segment">
+        <defs>
+            <pattern
+                id="off-fill"
+                width="1"
+                height="1"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(10)"
+            >
+                <line stroke="#800" stroke-width="1px" y2="1"/>
+        </pattern>
+        </defs>
         <path class:on={DIGIT_SEGMENT_MAP[digit][0]} d="M1 1l1-1h6l1 1-1 1H2z"/>
         <path class:on={DIGIT_SEGMENT_MAP[digit][1]} d="M9 1l1 1v6L9 9 8 8V2z"/>
         <path class:on={DIGIT_SEGMENT_MAP[digit][2]} d="M9 9l1 1v6l-1 1-1-1v-6z"/>
