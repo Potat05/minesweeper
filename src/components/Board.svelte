@@ -2,7 +2,15 @@
     import { onMount } from "svelte";
 
 
-    let generated: boolean;
+
+    enum GameState {
+        Waiting,
+        Generated,
+        Won,
+        Lost
+    }
+
+    let state: GameState = GameState.Waiting;
 
     export let width: number = 30;
     export let height: number = 16;
@@ -11,9 +19,9 @@
 
 
     enum TileType {
-        Covered = 1,
-        Open = 2,
-        Flagged = 3
+        Covered,
+        Open,
+        Flagged
     }
 
     type Tile = {
@@ -94,23 +102,30 @@
 
         } while(minesNearby(safeX, safeY) > 0);
 
-        generated = true;
+        state = GameState.Generated;
 
     }
 
 
 
     function tileReveal(x: number, y: number): void {
-        
-        if(!generated) {
+
+        if(state == GameState.Waiting) {
             generateBoard(x, y);
         }
+
+        if(state != GameState.Generated) return;
 
         if(get(x, y).type == TileType.Flagged) return;
         
         if(get(x, y).type == TileType.Covered) {
 
             get(x, y).type = TileType.Open;
+
+            if(get(x, y).isMine) {
+                state = GameState.Lost;
+                return;
+            }
     
             if(minesNearby(x, y) == 0) {
                 for(const tile of checkPatternIter(x, y)) {
@@ -134,22 +149,32 @@
 
     function tileFlag(x: number, y: number): void {
 
-        if(!generated) {
-            return;
-        }
+        if(state != GameState.Generated) return;
 
         const tile = get(x, y);
 
         if(tile.type == TileType.Open) return;
         tile.type = (tile.type == TileType.Covered) ? TileType.Flagged : TileType.Covered;
 
+        if(numFlaggedMines() == numMines) {
+            state = GameState.Won;
+        }
+
+    }
+
+
+
+    function numFlaggedMines(): number {
+        return tiles.reduce((count, tile) => {
+            return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
+        }, 0);
     }
 
 
 
     onMount(() => {
 
-        generated = false;
+        state = GameState.Waiting;
         tiles = new Array(width * height);
         tilesEmpty();
 
