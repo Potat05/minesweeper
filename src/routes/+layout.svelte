@@ -3,7 +3,16 @@
     <style>
 
         body {
-            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100vw;
+            height: 100vh;
+
+            margin: 0px;
+
+            background-color: #C6C6C6;
         }
 
         @font-face {
@@ -11,6 +20,22 @@
             font-style: normal;
             font-weight: 400;
             src: url('/fonts/alagard.ttf') format('truetype');
+
+            
+            font-smooth: never;
+            -webkit-font-smoothing: none;
+            text-rendering: geometricPrecision;
+        }
+
+        @font-face {
+            font-family: 'Pixel Sans Serif';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/Pixel Sans Serif.ttf') format('truetype');
+
+            font-smooth: never;
+            -webkit-font-smoothing: none;
+            text-rendering: geometricPrecision;
         }
 
     </style>
