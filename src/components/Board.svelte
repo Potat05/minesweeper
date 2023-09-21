@@ -110,6 +110,25 @@
 
     }
 
+    function checkWin(): void {
+
+        if(state != GameState.Generated) return;
+
+        const numFlaggedMines = tiles.reduce((count, tile) => {
+            return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
+        }, 0);
+
+        if(
+            numFlaggedMines == numMines &&
+            flagsLeft == 0 &&
+            tiles.every(tile => tile.type == TileType.Flagged || tile.type == TileType.Open)
+        ) {
+            state = GameState.Won;
+            stop();
+        }
+
+    }
+
 
 
     function tileReveal(x: number, y: number): void {
@@ -150,6 +169,10 @@
 
         }
 
+
+
+        checkWin();
+
     }
 
     function tileFlag(x: number, y: number): void {
@@ -169,14 +192,8 @@
         flagsLeft = numMines - numFlags;
 
 
-        const numFlaggedMines = tiles.reduce((count, tile) => {
-            return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
-        }, 0);
-
-        if(numFlaggedMines == numMines) {
-            state = GameState.Won;
-            stop();
-        }
+        
+        checkWin();
 
     }
 
