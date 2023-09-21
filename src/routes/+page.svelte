@@ -3,4 +3,4 @@
 
 </script>
 
-<Board />
+<Board width={30} height={16} numMines={99} />

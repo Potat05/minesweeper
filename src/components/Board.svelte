@@ -13,9 +13,9 @@
 
     let state: GameState = GameState.Waiting;
 
-    export let width: number = 30;
-    export let height: number = 16;
-    export let numMines: number = 99;
+    export let width: number;
+    export let height: number;
+    export let numMines: number;
 
     let flagsLeft: number = 0;
 
