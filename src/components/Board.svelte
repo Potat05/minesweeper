@@ -299,6 +299,10 @@
         outline-offset: -4px;
 
         cursor: pointer;
+
+        font-family: 'Alagard';
+        font-size: x-large;
+        font-weight: 900;
     }
 
     .opened {
@@ -306,10 +310,6 @@
         outline-offset: -2px;
 
         cursor: default;
-
-        font-family: 'Alagard';
-        font-size: x-large;
-        font-weight: 900;
     }
 
     .mines-nearby-1::before { content: "1"; color: blue; }
@@ -326,7 +326,12 @@
     }
 
     .exploded::before {
-        content: "💥";
+        content: "💥" !important;
+    }
+
+    .displayMine::before {
+        content: "💣";
+        font-size: large;
     }
 
 </style>
@@ -368,6 +373,7 @@
                 class:opened={tile.type == TileType.Open}
                 class:flagged={tile.type == TileType.Flagged}
                 class:exploded={tile.isMine && tile.type == TileType.Open}
+                class:displayMine={state == GameState.Lost && tile.isMine}
                 on:click={ev => {
                     ev.preventDefault();
 
