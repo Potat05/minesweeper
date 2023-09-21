@@ -263,6 +263,8 @@
         outline-offset: -4px;
 
         font-size: x-large;
+
+        cursor: pointer;
     }
 
     .button:active {
@@ -321,16 +323,17 @@
     .mines-nearby-7::before { content: "7"; color: black; }
     .mines-nearby-8::before { content: "8"; color: gray; }
 
-    .flagged::before {
-        content: "🚩";
-    }
-
     .exploded::before {
         content: "💥" !important;
     }
 
     .displayMine::before {
         content: "💣";
+        font-size: large;
+    }
+
+    .flagged::before {
+        content: "🚩";
         font-size: large;
     }
 
