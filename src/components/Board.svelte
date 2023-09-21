@@ -162,13 +162,18 @@
         tile.type = (tile.type == TileType.Covered) ? TileType.Flagged : TileType.Covered;
 
 
+        const numFlags = tiles.reduce((count, tile) => {
+            return tile.type == TileType.Flagged ? ++count : count;
+        }, 0);
+
+        flagsLeft = numMines - numFlags;
+
+
         const numFlaggedMines = tiles.reduce((count, tile) => {
             return (tile.isMine && tile.type == TileType.Flagged) ? ++count : count;
         }, 0);
 
-        flagsLeft = numMines - numFlaggedMines;
-
-        if(flagsLeft == 0) {
+        if(numFlaggedMines == numMines) {
             state = GameState.Won;
             stop();
         }
