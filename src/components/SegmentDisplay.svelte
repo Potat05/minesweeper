@@ -1,9 +1,10 @@
 <script lang="ts">
 
-    export let numDigits: number = 3;
+    export let minDigits: number = 3;
+    export let maxDigits: number = 3;
     export let number: number;
 
-    $: digits = Math.floor(number).toString().padStart(numDigits, '0').split('').slice(-numDigits).map(Number);
+    $: digits = Math.floor(number).toString().padStart(minDigits, '0').split('').slice(-maxDigits).map(Number);
 
     const DIGIT_SEGMENT_MAP: [ boolean, boolean, boolean, boolean, boolean, boolean, boolean ][] = [
         [ true, true, true, true, true, true, false ],

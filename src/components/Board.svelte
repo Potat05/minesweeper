@@ -343,7 +343,7 @@
 
     <div class="toparea">
         <div class="display">
-            <SegmentDisplay numDigits={3} bind:number={flagsLeft}/>
+            <SegmentDisplay minDigits={3} bind:number={flagsLeft}/>
         </div>
         <button
             class="button"
@@ -358,7 +358,7 @@
             {/if}
         </button>
         <div class="display">
-            <SegmentDisplay numDigits={3} bind:number={currentTime}/>
+            <SegmentDisplay minDigits={3} bind:number={currentTime}/>
         </div>
     </div>
 
