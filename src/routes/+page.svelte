@@ -90,13 +90,13 @@
     <div class="big-text">Minesweeper</div>
     <div class="difficulty-select">
         <div class="small-text">Select Difficulty</div>
-        <a href="/play?size=8x8&mines=10">
+        <a href="/minesweeper/play?size=8x8&mines=10">
             <button style="color: green;">Beginner</button>
         </a>
-        <a href="/play?size=16x16&mines=40">
+        <a href="/minesweeper/play?size=16x16&mines=40">
             <button style="color: yellow;">Intermediate</button>
         </a>
-        <a href="/play?size=30x16&mines=99">
+        <a href="/minesweeper/play?size=30x16&mines=99">
             <button style="color: red;">Expert</button>
         </a>
     </div>

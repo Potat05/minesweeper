@@ -19,7 +19,7 @@
             font-family: 'Alagard';
             font-style: normal;
             font-weight: 400;
-            src: url('/fonts/alagard.ttf') format('truetype');
+            src: url('/minesweeper/fonts/alagard.ttf') format('truetype');
 
             
             font-smooth: never;
@@ -31,7 +31,7 @@
             font-family: 'Pixel Sans Serif';
             font-style: normal;
             font-weight: 400;
-            src: url('/fonts/Pixel Sans Serif.ttf') format('truetype');
+            src: url('/minesweeper/fonts/Pixel Sans Serif.ttf') format('truetype');
 
             font-smooth: never;
             -webkit-font-smoothing: none;
