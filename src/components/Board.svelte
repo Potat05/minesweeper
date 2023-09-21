@@ -220,12 +220,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 6px;
 
         background-color: #C6C6C6;
         outline: 6px outset #FFFFFF;
         outline-offset: -6px;
         padding: 12px;
-        gap: 6px;
 
         width: fit-content;
     }
