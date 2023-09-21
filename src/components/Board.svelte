@@ -179,7 +179,6 @@
 
 
 
-
     let timerID: number = -1;
     let startTime: number = 0;
     let currentTime: number = 0;
@@ -187,7 +186,8 @@
     function stepTimer(): void {
         clearTimeout(timerID);
 
-        timerID = setTimeout(() => stepTimer(), 1000);
+        const secondFromNow = (Date.now() - startTime + 1005);
+        timerID = setTimeout(() => stepTimer(), (Math.floor(secondFromNow / 1000) * 1000) % 1000);
         currentTime = Math.floor((Date.now() - startTime) / 1000);
     }
 
