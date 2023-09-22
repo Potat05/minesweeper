@@ -4,7 +4,7 @@
 
     let width: number = 30;
     let height: number = 16;
-    let numMines: number = 99;
+    let numMines: number;
     
     let mounted: boolean = false;
 
@@ -20,6 +20,10 @@
         const mines = urlParams.get('mines');
         if(mines) {
             numMines = Math.floor(Number(mines));
+        }
+
+        if(numMines === undefined) {
+            numMines = Math.floor((width * height) * 0.20);
         }
 
         mounted = true;
