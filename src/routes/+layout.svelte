@@ -3,6 +3,11 @@
 
     <title>Minesweeper</title>
 
+    <meta
+        name="description"
+        content="Minesweeper clone built in Svelte."
+    />
+
     <style>
 
         body {
@@ -24,10 +29,11 @@
             font-weight: 400;
             src: url('/minesweeper/fonts/alagard.ttf') format('truetype');
 
-            
             font-smooth: never;
             -webkit-font-smoothing: none;
             text-rendering: geometricPrecision;
+
+            font-display: swap;
         }
 
         @font-face {
@@ -39,6 +45,8 @@
             font-smooth: never;
             -webkit-font-smoothing: none;
             text-rendering: geometricPrecision;
+
+            font-display: swap;
         }
 
     </style>
