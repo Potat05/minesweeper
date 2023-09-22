@@ -91,6 +91,10 @@
 
     function generateBoard(safeX: number, safeY: number): void {
 
+        if(tiles.length - 9 <= numMines) {
+            throw new Error('Too many mines for board, cannot generate board.');
+        }
+
         do {
 
             tilesEmpty();
@@ -235,6 +239,20 @@
     });
 
 </script>
+
+<svelte:head>
+
+    {#key currentTime}
+        {#if state == GameState.Generated}
+            <title>Minesweeper - ⏱ {Math.floor(currentTime / 60).toString().padStart(2, '0')}:{(currentTime % 60).toString().padStart(2, '0')} - 🚩 {flagsLeft}</title>
+        {:else if state == GameState.Won}
+            <title>Minesweeper - Victory - ⏱ {Math.floor(currentTime / 60).toString().padStart(2, '0')}:{(currentTime % 60).toString().padStart(2, '0')}</title>
+        {:else if state == GameState.Lost}
+            <title>Minesweeper - Lost</title>
+        {/if}
+    {/key}
+
+</svelte:head>
 
 <style>
 

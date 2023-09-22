@@ -1,5 +1,8 @@
 
 <svelte:head>
+
+    <title>Minesweeper</title>
+
     <style>
 
         body {
