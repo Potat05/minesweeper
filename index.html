@@ -6,13 +6,13 @@
 		<meta name="viewport" content="width=device-width" />
 		
 		<link href="./_app/immutable/assets/2.e3a8cbb8.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.284e402d.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.9fd9090e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.bc760b9c.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.bd9f68b0.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.96506b32.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.24432ba2.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.604e4c3d.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.b6611d32.js">
 		<link rel="modulepreload" href="./_app/immutable/nodes/0.9173bde2.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.2d752c6c.js"><title>Minesweeper</title><!-- HEAD_svelte-anxrlp_START --><meta name="description" content="Minesweeper clone built in Svelte."><style data-svelte-h="svelte-12pu5aw">body {
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.36a3420c.js"><title>Minesweeper</title><!-- HEAD_svelte-anxrlp_START --><meta name="description" content="Minesweeper clone built in Svelte."><style data-svelte-h="svelte-12pu5aw">body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -52,11 +52,11 @@
         }</style><!-- HEAD_svelte-anxrlp_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">   <div class="main-menu svelte-165h2rx" data-svelte-h="svelte-1lnlzea"><div class="big-text svelte-165h2rx">Minesweeper</div> <div class="difficulty-select svelte-165h2rx"><div class="small-text svelte-165h2rx">Select Difficulty</div> <a href="/minesweeper/play?size=8x8&mines=10" class="svelte-165h2rx"><button style="color: green;" class="svelte-165h2rx">Beginner</button></a> <a href="/minesweeper/play?size=16x16&mines=40" class="svelte-165h2rx"><button style="color: yellow;" class="svelte-165h2rx">Intermediate</button></a> <a href="/minesweeper/play?size=30x16&mines=99" class="svelte-165h2rx"><button style="color: red;" class="svelte-165h2rx">Expert</button></a></div></div> 
+		<div style="display: contents">   <div class="main-menu svelte-165h2rx" data-svelte-h="svelte-u55e3z"><div class="big-text svelte-165h2rx">Minesweeper</div> <div class="difficulty-select svelte-165h2rx"><div class="small-text svelte-165h2rx">Select Difficulty</div> <a href="/minesweeper/play/beginner" class="svelte-165h2rx"><button style="color: green;" class="svelte-165h2rx">Beginner</button></a> <a href="/minesweeper/play/intermediate" class="svelte-165h2rx"><button style="color: yellow;" class="svelte-165h2rx">Intermediate</button></a> <a href="/minesweeper/play/expert" class="svelte-165h2rx"><button style="color: red;" class="svelte-165h2rx">Expert</button></a></div></div> 
 			
 			<script>
 				{
-					__sveltekit_y5586w = {
+					__sveltekit_18o5u1o = {
 						assets: "/minesweeper",
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
@@ -67,8 +67,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.284e402d.js"),
-						import("./_app/immutable/entry/app.96506b32.js")
+						import("./_app/immutable/entry/start.9fd9090e.js"),
+						import("./_app/immutable/entry/app.604e4c3d.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
