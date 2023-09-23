@@ -424,14 +424,22 @@
                 class:flagged={tile.type == TileType.Flagged}
                 class:exploded={tile.isMine && tile.type == TileType.Open}
                 class:displayMine={state == GameState.Lost && tile.isMine}
-                class:clickable={tile.type != TileType.Open || (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))}
+                class:clickable={
+                    state == GameState.Waiting || (state == GameState.Generated && (
+                            tile.type != TileType.Open ||
+                            (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))
+                        )
+                    )
+                }
                 on:click={ev => {
+                    if(state != GameState.Waiting && state != GameState.Generated) return;
                     ev.preventDefault();
 
                     tileReveal(tile.x, tile.y);
                     tile = get(tile.x, tile.y);
                 }}
                 on:contextmenu={ev => {
+                    if(state != GameState.Generated) return;
                     ev.preventDefault();
 
                     tileFlag(tile.x, tile.y);
