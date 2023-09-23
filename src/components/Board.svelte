@@ -87,6 +87,13 @@
         return count;
     }
 
+    function hasCoveredTilesNearby(x: number, y: number): boolean {
+        for(const tile of checkPatternIter(x, y)) {
+            if(tile.type == TileType.Covered) return true;
+        }
+        return false;
+    }
+
 
 
     function generateBoard(safeX: number, safeY: number): void {
@@ -340,8 +347,6 @@
         outline: 4px outset #FFFFFF;
         outline-offset: -4px;
 
-        cursor: pointer;
-
         font-family: 'Alagard';
         font-size: x-large;
         font-weight: 900;
@@ -350,8 +355,6 @@
     .opened {
         outline: 2px solid #ABABAB;
         outline-offset: -2px;
-
-        cursor: default;
     }
 
     .mines-nearby-1::before { content: "1"; color: blue; }
@@ -375,6 +378,10 @@
     .flagged::before {
         content: "🚩";
         font-size: large;
+    }
+
+    .clickable {
+        cursor: pointer;
     }
 
 </style>
@@ -417,6 +424,7 @@
                 class:flagged={tile.type == TileType.Flagged}
                 class:exploded={tile.isMine && tile.type == TileType.Open}
                 class:displayMine={state == GameState.Lost && tile.isMine}
+                class:clickable={tile.type != TileType.Open || (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))}
                 on:click={ev => {
                     ev.preventDefault();
 
