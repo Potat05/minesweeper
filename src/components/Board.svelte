@@ -310,8 +310,6 @@
         outline-offset: -4px;
 
         font-size: x-large;
-
-        cursor: pointer;
     }
 
     .button:active {
@@ -380,7 +378,7 @@
         font-size: large;
     }
 
-    .clickable {
+    button {
         cursor: pointer;
     }
 
@@ -416,36 +414,42 @@
 
         {#each tiles as tile}
 
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-                class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
-                class:opened={tile.type == TileType.Open}
-                class:flagged={tile.type == TileType.Flagged}
-                class:exploded={tile.isMine && tile.type == TileType.Open}
-                class:displayMine={state == GameState.Lost && tile.isMine}
-                class:clickable={
-                    state == GameState.Waiting || (state == GameState.Generated && (
-                            tile.type != TileType.Open ||
-                            (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))
-                        )
-                    )
-                }
-                on:click={ev => {
-                    if(state != GameState.Waiting && state != GameState.Generated) return;
-                    ev.preventDefault();
+            {#if state == GameState.Waiting || (state == GameState.Generated && (
+                    tile.type != TileType.Open ||
+                    (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))
+                )
+            )}
+                <!-- Clickable -->
+                <button
+                    class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
+                    class:opened={tile.type == TileType.Open}
+                    class:flagged={tile.type == TileType.Flagged}
+                    class:exploded={tile.isMine && tile.type == TileType.Open}
+                    on:click={ev => {
+                        if(state != GameState.Waiting && state != GameState.Generated) return;
+                        ev.preventDefault();
 
-                    tileReveal(tile.x, tile.y);
-                    tile = get(tile.x, tile.y);
-                }}
-                on:contextmenu={ev => {
-                    if(state != GameState.Generated) return;
-                    ev.preventDefault();
+                        tileReveal(tile.x, tile.y);
+                        tile = get(tile.x, tile.y);
+                    }}
+                    on:contextmenu={ev => {
+                        if(state != GameState.Generated) return;
+                        ev.preventDefault();
 
-                    tileFlag(tile.x, tile.y);
-                    tile = get(tile.x, tile.y);
-                }}
-            />
+                        tileFlag(tile.x, tile.y);
+                        tile = get(tile.x, tile.y);
+                    }}
+                />
+            {:else}
+                <!-- Not clickable -->
+                <div
+                    class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
+                    class:opened={tile.type == TileType.Open}
+                    class:flagged={tile.type == TileType.Flagged}
+                    class:exploded={tile.isMine && tile.type == TileType.Open}
+                    class:displayMine={state == GameState.Lost && tile.isMine}
+                />
+            {/if}
                 
         {/each}
         
