@@ -442,12 +442,17 @@
                 />
             {:else}
                 <!-- Not clickable -->
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
                 <div
                     class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
                     class:opened={tile.type == TileType.Open}
                     class:flagged={tile.type == TileType.Flagged}
                     class:exploded={tile.isMine && tile.type == TileType.Open}
                     class:displayMine={state == GameState.Lost && tile.isMine}
+                    on:contextmenu={ev => {
+                        if(state != GameState.Generated) return;
+                        ev.preventDefault();
+                    }}
                 />
             {/if}
                 
