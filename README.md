@@ -9,4 +9,5 @@ Simple Minesweeper game in svelte
     * [Alagard](https://www.dafont.com/alagard.font)
     * [Pixel Sans Serif](https://www.dafont.com/pixel-sans-serif.font  )
 
-![Minesweeper Expert Game](screenshot.png "Minesweeper Expert Game")
+![Minesweeper Expert Game](expert-game.png "Minesweeper Expert Game")
+![Minesweeper Expert Game Win](expert-win.png "Minesweeper Expert Game Win")
