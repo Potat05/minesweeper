@@ -27,6 +27,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Insert Git Commit
+        run:
+          git log --format="%H" -n 1 > build/git_commit.txt
+          git log --format="%H" -n 1 | git show -s --format=%ci >> build/git_commit.txt
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

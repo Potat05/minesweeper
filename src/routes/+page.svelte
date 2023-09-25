@@ -1,3 +1,21 @@
+<script lang="ts">
+    import { onMount } from "svelte";
+
+    onMount(async () => {
+
+        const commitReq = await fetch('/minesweeper/git_commit.txt');
+
+        if(commitReq.ok) {
+            const commit = new TextDecoder('utf-16').decode(await commitReq.arrayBuffer()).trim();
+            console.log(`%cRunning on commit:\n${commit}`, 'color: cyan; font-size: 15px; font-weight: 900;');
+        } else {
+            console.warn('%cFailed to fetch git commit.', 'color: yellow; font-size: 15px; font-weight: 900;');
+        }
+
+    });
+
+</script>
+
 <style>
 
     .main-menu {
