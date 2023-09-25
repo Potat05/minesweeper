@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import SegmentDisplay from "./SegmentDisplay.svelte";
+    import { Timer } from "../lib/Timer";
 
 
 
@@ -212,25 +213,19 @@
 
 
 
-    let timerID: number = -1;
-    let startTime: number = 0;
     let currentTime: number = 0;
+    let timer: Timer = new Timer(1000);
 
-    function stepTimer(): void {
-        clearTimeout(timerID);
-
-        const secondFromNow = (Date.now() - startTime + 1005);
-        timerID = setTimeout(() => stepTimer(), (Math.floor(secondFromNow / 1000) * 1000) % 1000);
-        currentTime = Math.floor((Date.now() - startTime) / 1000);
-    }
+    timer.addEventListener('tick', time => {
+        currentTime = Math.floor(time / 1000);
+    });
 
     function start(): void {
-        startTime = Date.now();
-        stepTimer();
+        timer.start();
     }
 
     function stop(): void {
-        clearTimeout(timerID);
+        timer.stop();
     }
 
     function reset(): void {
@@ -243,6 +238,10 @@
 
     onMount(() => {
         reset();
+    });
+
+    onDestroy(() => {
+        stop();
     });
 
 </script>
@@ -388,7 +387,7 @@
 
     <div class="toparea">
         <div class="display">
-            <SegmentDisplay minDigits={3} bind:number={flagsLeft}/>
+            <SegmentDisplay minDigits={3} maxDigits={Infinity} bind:number={flagsLeft}/>
         </div>
         <button
             class="button"
@@ -403,7 +402,7 @@
             {/if}
         </button>
         <div class="display">
-            <SegmentDisplay minDigits={3} bind:number={currentTime}/>
+            <SegmentDisplay minDigits={3} maxDigits={Infinity} bind:number={currentTime}/>
         </div>
     </div>
 
