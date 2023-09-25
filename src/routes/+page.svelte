@@ -3,7 +3,9 @@
 
     onMount(async () => {
 
-        const commitReq = await fetch('/minesweeper/git_commit.txt');
+        const commitReq = await fetch('/minesweeper/git_commit.txt', {
+            cache: 'no-store'
+        });
 
         if(commitReq.ok) {
             const commit = new TextDecoder().decode(await commitReq.arrayBuffer()).trim();
