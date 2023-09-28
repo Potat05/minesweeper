@@ -100,11 +100,8 @@
         background-color: #ABABAB;
     }
 
-    button:focus::after {
+    a:focus-visible {
         content: '';
-        position: absolute;
-        width: inherit;
-        height: inherit;
         outline: 1px dotted black;
         outline-offset: -2px;
     }
