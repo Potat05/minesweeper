@@ -356,36 +356,56 @@
         outline-offset: -2px;
     }
 
-    .mines-nearby-1::before { content: "1"; color: blue; }
-    .mines-nearby-2::before { content: "2"; color: green; }
-    .mines-nearby-3::before { content: "3"; color: red; }
-    .mines-nearby-4::before { content: "4"; color: darkblue; }
-    .mines-nearby-5::before { content: "5"; color: darkred; }
-    .mines-nearby-6::before { content: "6"; color: teal; }
-    .mines-nearby-7::before { content: "7"; color: black; }
-    .mines-nearby-8::before { content: "8"; color: gray; }
+    .mines-nearby-1::before { content: "1" !important; color: blue; }
+    .mines-nearby-2::before { content: "2" !important; color: green; }
+    .mines-nearby-3::before { content: "3" !important; color: red; }
+    .mines-nearby-4::before { content: "4" !important; color: darkblue; }
+    .mines-nearby-5::before { content: "5" !important; color: darkred; }
+    .mines-nearby-6::before { content: "6" !important; color: teal; }
+    .mines-nearby-7::before { content: "7" !important; color: black; }
+    .mines-nearby-8::before { content: "8" !important; color: gray; }
 
     .exploded::before {
         content: "💥" !important;
     }
 
     .displayMine::before {
-        content: "💣";
+        content: "💣" !important;
         font-size: large;
     }
 
     .flagged::before {
-        content: "🚩";
+        content: "🚩" !important;
         font-size: large;
     }
+
+
 
     button {
         cursor: pointer;
     }
 
+    button:focus::after {
+        content: '';
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        outline: 1px dotted black;
+        outline-offset: -2px;
+    }
+
 </style>
 
-<div class="game">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+    class="game"
+    on:keydown={ev => {
+        if(ev.code != 'KeyR') return;
+        ev.preventDefault();
+
+        reset();
+    }}
+>
 
     <div class="toparea">
         <div class="display">
@@ -411,6 +431,10 @@
     <div
         class="board"
         style="grid-template-columns: repeat({width}, 1fr); grid-template-rows: repeat({height}, 1fr);"
+        on:contextmenu={ev => {
+            if(state != GameState.Generated) return;
+            ev.preventDefault();
+        }}
     >
 
         {#each tiles as tile}
@@ -426,6 +450,7 @@
                     class:opened={tile.type == TileType.Open}
                     class:flagged={tile.type == TileType.Flagged}
                     class:exploded={tile.isMine && tile.type == TileType.Open}
+                    title="x{tile.x} y{tile.y}{tile.type == TileType.Open ? ` - ${minesNearby(tile.x, tile.y)} Nearby` : (tile.type == TileType.Flagged ? ' - Flagged' : '')}"
                     on:click={ev => {
                         if(state != GameState.Waiting && state != GameState.Generated) return;
                         ev.preventDefault();
@@ -435,6 +460,14 @@
                     }}
                     on:contextmenu={ev => {
                         if(state != GameState.Generated) return;
+                        ev.preventDefault();
+
+                        tileFlag(tile.x, tile.y);
+                        tile = get(tile.x, tile.y);
+                    }}
+                    on:keydown={ev => {
+                        if(state != GameState.Generated) return;
+                        if(ev.code != 'KeyF') return;
                         ev.preventDefault();
 
                         tileFlag(tile.x, tile.y);
@@ -450,10 +483,7 @@
                     class:flagged={tile.type == TileType.Flagged}
                     class:exploded={tile.isMine && tile.type == TileType.Open}
                     class:displayMine={state == GameState.Lost && tile.isMine}
-                    on:contextmenu={ev => {
-                        if(state != GameState.Generated) return;
-                        ev.preventDefault();
-                    }}
+                    title="x{tile.x} y{tile.y}{tile.type == TileType.Open ? ` - ${minesNearby(tile.x, tile.y)} Nearby` : (tile.type == TileType.Flagged ? ' - Flagged' : '')}"
                 />
             {/if}
                 

@@ -100,6 +100,15 @@
         background-color: #ABABAB;
     }
 
+    button:focus::after {
+        content: '';
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        outline: 1px dotted black;
+        outline-offset: -2px;
+    }
+
     a {
         text-decoration: none;
     }
@@ -111,13 +120,13 @@
     <div class="difficulty-select">
         <div class="small-text">Select Difficulty</div>
         <a href="/minesweeper/play/beginner">
-            <button style="color: green;">Beginner</button>
+            <button style="color: green;" tabindex="-1">Beginner</button>
         </a>
         <a href="/minesweeper/play/intermediate">
-            <button style="color: yellow;">Intermediate</button>
+            <button style="color: yellow;" tabindex="-1">Intermediate</button>
         </a>
         <a href="/minesweeper/play/expert">
-            <button style="color: red;">Expert</button>
+            <button style="color: red;" tabindex="-1">Expert</button>
         </a>
     </div>
 </div>
