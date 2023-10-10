@@ -26,8 +26,8 @@
         align-items: center;
         gap: 6px;
 
-        background-color: #C6C6C6;
-        outline: 6px outset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 6px var(--outline);
         outline-offset: -6px;
         padding: 12px;
 
@@ -54,7 +54,7 @@
     .small-text {
         font-size: large;
 
-        color: #222;
+        color: var(--text-color);
 
         text-align: center;
     }
@@ -65,8 +65,8 @@
         align-items: center;
         gap: 6px;
         
-        background-color: #C6C6C6;
-        outline: 6px inset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 6px var(--outline);
         outline-offset: -6px;
         padding: 12px;
     }
@@ -83,8 +83,8 @@
         height: 48px;
         width: 100%;
 
-        background-color: #C6C6C6;
-        outline: 4px outset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 4px var(--outline);
         outline-offset: -4px;
 
         font-size: x-large;

@@ -270,8 +270,8 @@
         align-items: center;
         gap: 6px;
 
-        background-color: #C6C6C6;
-        outline: 6px outset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 6px var(--outline);
         outline-offset: -6px;
         padding: 12px;
 
@@ -284,8 +284,8 @@
         justify-content: space-between;
         align-items: center;
         
-        background-color: #C6C6C6;
-        outline: 6px inset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 6px var(--outline);
         outline-offset: -6px;
         padding: 12px;
         width: calc(100% - 24px);
@@ -295,7 +295,7 @@
         height: 46px;
 
         margin: 2px;
-        outline: 2px inset #FFFFFF;
+        outline: 2px var(--outline);
     }
 
     .button {
@@ -306,8 +306,8 @@
         width: 48px;
         height: 48px;
 
-        background-color: #C6C6C6;
-        outline: 4px outset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 4px var(--outline);
         outline-offset: -4px;
 
         font-size: x-large;
@@ -318,7 +318,7 @@
     }
 
     .button:hover {
-        background-color: #ABABAB;
+        background-color: var(--button-hover);
     }
 
 
@@ -327,8 +327,8 @@
 
         width: fit-content;
 
-        background-color: #C6C6C6;
-        outline: 6px inset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 6px var(--outline);
         outline-offset: -6px;
         padding: 6px;
     }
@@ -342,8 +342,8 @@
         width: 32px;
         height: 32px;
 
-        background-color: #C6C6C6;
-        outline: 4px outset #FFFFFF;
+        background-color: var(--background-color);
+        outline: 4px var(--outline);
         outline-offset: -4px;
 
         font-family: 'Alagard';
@@ -352,7 +352,7 @@
     }
 
     .opened {
-        outline: 2px solid #ABABAB;
+        outline: 2px var(--outline-flat);
         outline-offset: -2px;
     }
 

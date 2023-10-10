@@ -1,3 +1,13 @@
+<script lang="ts">
+    import { onMount } from "svelte";
+
+    let theme = 'light';
+
+    onMount(() => {
+        theme = localStorage.getItem('theme') ?? 'light';
+    });
+
+</script>
 
 <svelte:head>
 
@@ -20,7 +30,7 @@
 
             margin: 0px;
 
-            background-color: #C6C6C6;
+            background-color: var(--background-color);
         }
 
         @font-face {
@@ -50,6 +60,37 @@
         }
 
     </style>
+
+    {#if theme == 'light'}
+
+        <style>
+            :root {
+                
+                --background-color: #C6C6C6;
+                --outline: outset #FFFFFF;
+                --text-color: #222;
+                --button-hover: #ABABAB;
+                --outline-flat: solid #ABABAB;
+
+            }
+        </style>
+
+    {:else if theme == 'dark'}
+
+        <style>
+            :root {
+                
+                --background-color: #2B2B2B;
+                --outline: outset #000000;
+                --text-color: #EEE;
+                --button-hover: #606060;
+                --outline-flat: solid #808080;
+
+            }
+        </style>
+
+    {/if}
+
 </svelte:head>
 
 <slot />
