@@ -72,6 +72,15 @@
                 --button-hover: #ABABAB;
                 --outline-flat: solid #ABABAB;
 
+                --mines-nearby-1: blue;
+                --mines-nearby-2: green;
+                --mines-nearby-3: red;
+                --mines-nearby-4: darkblue;
+                --mines-nearby-5: darkred;
+                --mines-nearby-6: teal;
+                --mines-nearby-7: black;
+                --mines-nearby-8: gray;
+
             }
         </style>
 
@@ -84,7 +93,16 @@
                 --outline: outset #000000;
                 --text-color: #EEE;
                 --button-hover: #606060;
-                --outline-flat: solid #808080;
+                --outline-flat: solid #414141;
+
+                --mines-nearby-1: cyan;
+                --mines-nearby-2: lime;
+                --mines-nearby-3: hotpink;
+                --mines-nearby-4: dodgerblue;
+                --mines-nearby-5: red;
+                --mines-nearby-6: teal;
+                --mines-nearby-7: white;
+                --mines-nearby-8: black;
 
             }
         </style>

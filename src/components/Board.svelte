@@ -356,14 +356,14 @@
         outline-offset: -2px;
     }
 
-    .mines-nearby-1::before { content: "1" !important; color: blue; }
-    .mines-nearby-2::before { content: "2" !important; color: green; }
-    .mines-nearby-3::before { content: "3" !important; color: red; }
-    .mines-nearby-4::before { content: "4" !important; color: darkblue; }
-    .mines-nearby-5::before { content: "5" !important; color: darkred; }
-    .mines-nearby-6::before { content: "6" !important; color: teal; }
-    .mines-nearby-7::before { content: "7" !important; color: black; }
-    .mines-nearby-8::before { content: "8" !important; color: gray; }
+    .mines-nearby-1::before { content: "1" !important; color: var(--mines-nearby-1); }
+    .mines-nearby-2::before { content: "2" !important; color: var(--mines-nearby-2); }
+    .mines-nearby-3::before { content: "3" !important; color: var(--mines-nearby-3); }
+    .mines-nearby-4::before { content: "4" !important; color: var(--mines-nearby-4); }
+    .mines-nearby-5::before { content: "5" !important; color: var(--mines-nearby-5); }
+    .mines-nearby-6::before { content: "6" !important; color: var(--mines-nearby-6); }
+    .mines-nearby-7::before { content: "7" !important; color: var(--mines-nearby-7); }
+    .mines-nearby-8::before { content: "8" !important; color: var(--mines-nearby-8); }
 
     .exploded::before {
         content: "💥" !important;
