@@ -365,13 +365,13 @@
     .mines-nearby-7::before { content: "7" !important; color: var(--mines-nearby-7); }
     .mines-nearby-8::before { content: "8" !important; color: var(--mines-nearby-8); }
 
-    .exploded::before {
-        content: "💥" !important;
-    }
-
     .displayMine::before {
         content: "💣" !important;
         font-size: large;
+    }
+
+    .exploded::before {
+        content: "💥" !important;
     }
 
     .flagged::before {
