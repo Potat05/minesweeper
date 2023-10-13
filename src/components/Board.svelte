@@ -390,7 +390,7 @@
         position: absolute;
         width: inherit;
         height: inherit;
-        outline: 1px dotted black;
+        outline: 1px var(--focus-outline);
         outline-offset: -2px;
     }
 

@@ -102,7 +102,7 @@
 
     a:focus-visible {
         content: '';
-        outline: 1px dotted black;
+        outline: 1px var(--focus-outline);
         outline-offset: -2px;
     }
 

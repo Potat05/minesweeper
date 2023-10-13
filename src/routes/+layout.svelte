@@ -81,6 +81,8 @@
                 --mines-nearby-7: black;
                 --mines-nearby-8: gray;
 
+                --focus-outline: dotted black;
+
             }
         </style>
 
@@ -103,6 +105,8 @@
                 --mines-nearby-6: teal;
                 --mines-nearby-7: white;
                 --mines-nearby-8: black;
+
+                --focus-outline: dotted white;
 
             }
         </style>
