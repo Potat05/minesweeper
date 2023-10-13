@@ -4,7 +4,11 @@
     let theme = 'light';
 
     onMount(() => {
-        theme = localStorage.getItem('theme') ?? 'light';
+        theme = localStorage.getItem('theme') ?? (
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ?
+            'dark' :
+            'light'
+        );
     });
 
 </script>
