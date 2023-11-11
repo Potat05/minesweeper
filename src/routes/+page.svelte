@@ -18,112 +18,29 @@
 
 </script>
 
-<style>
+<style lang="scss">
 
-    .main-menu {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-
-        background-color: var(--background-color);
-        outline: 6px var(--outline);
-        outline-offset: -6px;
-        padding: 12px;
-
-        width: fit-content;
-    }
-
-    
-    * {
-        font-family: 'Pixel Sans Serif';
-        font-size: small;
-    }
-
-    .big-text {
-        font-family: 'Alagard';
-        font-weight: 600;
-        font-size: xx-large;
-
-        background: linear-gradient(45deg, rgba(241,0,255,1) 1%, rgba(9,9,121,1) 49%, rgba(0,212,255,1) 100%);;
+    .text-titlecolor {
+        background: linear-gradient(45deg,rgba(241,0,255,1) 1%,rgb(35, 35, 204) 49%,rgba(0,212,255,1) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .small-text {
-        font-size: large;
-
-        color: var(--text-color);
-
-        text-align: center;
-    }
-
-    .difficulty-select {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        
-        background-color: var(--background-color);
-        outline: 6px var(--outline);
-        outline-offset: -6px;
-        padding: 12px;
-    }
-
-    .difficulty-select > * {
-        width: 100%;
-    }
-
-    button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        height: 48px;
-        width: 100%;
-
-        background-color: var(--background-color);
-        outline: 4px var(--outline);
-        outline-offset: -4px;
-
-        font-size: x-large;
-
-        cursor: pointer;
-    }
-
-    button:active {
-        outline-style: inset;
-    }
-
-    button:hover {
-        background-color: #ABABAB;
-    }
-
-    a:focus-visible {
-        content: '';
-        outline: 1px var(--focus-outline);
-        outline-offset: -2px;
-    }
-
-    a {
-        text-decoration: none;
-    }
-    
 </style>
 
-<div class="main-menu">
-    <div class="big-text">Minesweeper</div>
-    <div class="difficulty-select">
-        <div class="small-text">Select Difficulty</div>
-        <a href="/minesweeper/play/beginner">
-            <button style="color: green;" tabindex="-1">Beginner</button>
+<div class="flex flex-col items-center gap-2 bg-zinc-900 outline-[6px] [outline-style:outset] outline-offset-[-6px] outline-zinc-600 w-fit p-5">
+    <span class="font-alagard text-titlecolor text-4xl font-semibold">Minesweeper</span>
+    <div class="flex flex-col items-center gap-4">
+        <div class="font-pixelsans text-zinc-200">Select Difficulty</div>
+        <a href="/minesweeper/play/beginner" class="w-full">
+            <button class="font-pixelsans text-green-500 outline-4 [outline-style:outset] outline-zinc-600 p-2 w-full" tabindex="-1">Beginner</button>
         </a>
-        <a href="/minesweeper/play/intermediate">
-            <button style="color: yellow;" tabindex="-1">Intermediate</button>
+        <a href="/minesweeper/play/intermediate" class="w-full">
+            <button class="font-pixelsans text-yellow-400 outline-4 [outline-style:outset] outline-zinc-600 p-2 w-full" tabindex="-1">Intermediate</button>
         </a>
-        <a href="/minesweeper/play/expert">
-            <button style="color: red;" tabindex="-1">Expert</button>
+        <a href="/minesweeper/play/expert" class="w-full">
+            <button class="font-pixelsans text-red-500 outline-4 [outline-style:outset] outline-zinc-600 p-2 w-full" tabindex="-1">Expert</button>
         </a>
     </div>
 </div>
