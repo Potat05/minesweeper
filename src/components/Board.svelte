@@ -262,108 +262,21 @@
 
 </svelte:head>
 
-<style>
-
-    .game {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-
-        background-color: var(--background-color);
-        outline: 6px var(--outline);
-        outline-offset: -6px;
-        padding: 12px;
-
-        width: fit-content;
-    }
-
-
-    .toparea {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        
-        background-color: var(--background-color);
-        outline: 6px var(--outline);
-        outline-offset: -6px;
-        padding: 12px;
-        width: calc(100% - 24px);
-    }
-
-    .display {
-        height: 46px;
-
-        margin: 2px;
-        outline: 2px var(--outline);
-    }
-
-    .button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 48px;
-        height: 48px;
-
-        background-color: var(--background-color);
-        outline: 4px var(--outline);
-        outline-offset: -4px;
-
-        font-size: x-large;
-    }
-
-    .button:active {
-        outline-style: inset;
-    }
-
-    .button:hover {
-        background-color: var(--button-hover);
-    }
-
-
-    .board {
-        display: grid;
-
-        width: fit-content;
-
-        background-color: var(--background-color);
-        outline: 6px var(--outline);
-        outline-offset: -6px;
-        padding: 6px;
-    }
-
-
-    .tile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 32px;
-        height: 32px;
-
-        background-color: var(--background-color);
-        outline: 4px var(--outline);
-        outline-offset: -4px;
-
-        font-family: 'Alagard';
-        font-size: x-large;
-        font-weight: 900;
-    }
+<style lang="scss">
 
     .opened {
-        outline: 2px var(--outline-flat);
+        outline: 2px solid theme('colors.zinc.800');
         outline-offset: -2px;
     }
 
-    .mines-nearby-1::before { content: "1" !important; color: var(--mines-nearby-1); }
-    .mines-nearby-2::before { content: "2" !important; color: var(--mines-nearby-2); }
-    .mines-nearby-3::before { content: "3" !important; color: var(--mines-nearby-3); }
-    .mines-nearby-4::before { content: "4" !important; color: var(--mines-nearby-4); }
-    .mines-nearby-5::before { content: "5" !important; color: var(--mines-nearby-5); }
-    .mines-nearby-6::before { content: "6" !important; color: var(--mines-nearby-6); }
-    .mines-nearby-7::before { content: "7" !important; color: var(--mines-nearby-7); }
-    .mines-nearby-8::before { content: "8" !important; color: var(--mines-nearby-8); }
+    .mines-nearby-1::before { content: "1" !important; color: cyan; }
+    .mines-nearby-2::before { content: "2" !important; color: lime; }
+    .mines-nearby-3::before { content: "3" !important; color: hotpink; }
+    .mines-nearby-4::before { content: "4" !important; color: dodgerblue; }
+    .mines-nearby-5::before { content: "5" !important; color: red; }
+    .mines-nearby-6::before { content: "6" !important; color: teal; }
+    .mines-nearby-7::before { content: "7" !important; color: white; }
+    .mines-nearby-8::before { content: "8" !important; color: black; }
 
     .displayMine::before {
         content: "💣" !important;
@@ -379,62 +292,36 @@
         font-size: large;
     }
 
-
-
-    button {
-        cursor: pointer;
-    }
-
-    button:focus::after {
-        content: '';
-        position: absolute;
-        width: inherit;
-        height: inherit;
-        outline: 1px var(--focus-outline);
-        outline-offset: -2px;
-    }
-
 </style>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-    class="game"
-    on:keydown={ev => {
-        if(ev.code != 'KeyR') return;
-        ev.preventDefault();
-
-        reset();
-    }}
+    class="flex flex-col items-center gap-2 p-3 w-fit border-4 [border-style:outset] border-zinc-600"
 >
 
-    <div class="toparea">
-        <div class="display">
+    <div class="flex justify-between items-center p-3 w-full bg-zinc-900 border-4 [border-style:outset] border-zinc-600">
+        <div class="h-11 m-1 flex outline-2 [outline-style:outset] outline-zinc-600">
             <SegmentDisplay minDigits={3} maxDigits={Infinity} bind:number={flagsLeft}/>
         </div>
         <button
-            class="button"
+            class="flex justify-center items-center w-12 h-12 bg-zinc-900 border-4 [border-style:outset] border-zinc-600 text-2xl active:[border-style:inset] hover:bg-zinc-800"
             on:click={reset}
         >
-            {#if state == GameState.Waiting || state == GameState.Generated}
-                😊
-            {:else if state == GameState.Won}
-                😎
-            {:else if state == GameState.Lost}
-                😵
-            {/if}
+            {
+                state == GameState.Won ? '😎' :
+                state == GameState.Lost ? '😵' :
+                '😊'
+            }
         </button>
-        <div class="display">
+        <div class="h-11 m-1 flex outline-2 [outline-style:outset] outline-zinc-600">
             <SegmentDisplay minDigits={3} maxDigits={Infinity} bind:number={currentTime}/>
         </div>
     </div>
 
     <div
-        class="board"
-        style="grid-template-columns: repeat({width}, 1fr); grid-template-rows: repeat({height}, 1fr);"
-        on:contextmenu={ev => {
-            if(state != GameState.Generated) return;
-            ev.preventDefault();
-        }}
+        class="grid w-fit bg-zinc-900 border-4 [border-style:outset] border-zinc-600"
+        style:grid-template-columns={`repeat(${width}, 1fr)`}
+        style:grid-template-rows={`repeat(${height}, 1fr)`}
     >
 
         {#each tiles as tile}
@@ -444,9 +331,12 @@
                     (hasCoveredTilesNearby(tile.x, tile.y) && minesNearby(tile.x, tile.y) == flagsNearby(tile.x, tile.y))
                 )
             )}
-                <!-- Clickable -->
+
                 <button
-                    class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
+                    class="
+                        flex justify-center items-center w-8 h-8 font-alagard font-extrabold text-2xl bg-zinc-900 outline-4 [outline-style:outset] outline-zinc-600 -outline-offset-4
+                        {tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}
+                    "
                     class:opened={tile.type == TileType.Open}
                     class:flagged={tile.type == TileType.Flagged}
                     class:exploded={tile.isMine && tile.type == TileType.Open}
@@ -474,21 +364,25 @@
                         tile = get(tile.x, tile.y);
                     }}
                 />
+
             {:else}
-                <!-- Not clickable -->
-                <!-- svelte-ignore a11y-no-static-element-interactions -->
+        
                 <div
-                    class="tile{tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}"
+                    class="
+                        flex justify-center items-center w-8 h-8 font-alagard font-extrabold text-2xl bg-zinc-900 outline-4 [outline-style:outset] outline-zinc-600 -outline-offset-4
+                        {tile.type == TileType.Open ? ` mines-nearby-${minesNearby(tile.x, tile.y)}` : ''}
+                    "
                     class:opened={tile.type == TileType.Open}
                     class:flagged={tile.type == TileType.Flagged}
                     class:exploded={tile.isMine && tile.type == TileType.Open}
                     class:displayMine={state == GameState.Lost && tile.isMine}
                     title="x{tile.x} y{tile.y}{tile.type == TileType.Open ? ` - ${minesNearby(tile.x, tile.y)} Nearby` : (tile.type == TileType.Flagged ? ' - Flagged' : '')}"
                 />
-            {/if}
-                
-        {/each}
         
+            {/if}
+
+        {/each}
+
     </div>
 
 </div>

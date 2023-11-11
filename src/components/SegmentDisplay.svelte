@@ -23,18 +23,7 @@
 
 </script>
 
-<style>
-
-    .segment {
-        background-color: black;
-
-        fill: url(#off-fill);
-        stroke: black;
-        stroke-width: 0.25;
-
-        height: inherit;
-        width: inherit;
-    }
+<style lang="scss">
 
     .on {
         fill: red;
@@ -44,7 +33,7 @@
 
 {#each digits as digit}
     
-    <svg xmlns="http://www.w3.org/2000/svg" width="192" height="320" viewBox="-1 -1 12 20" class="segment">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 12 20" class="bg-black fill-[url(#off-fill)] stroke-black stroke-[0.25] w-[inherit] h-[inherit]">
         <defs>
             <pattern
                 id="off-fill"

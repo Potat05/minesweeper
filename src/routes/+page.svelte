@@ -31,16 +31,16 @@
 
 <div class="flex flex-col items-center gap-2 bg-zinc-900 w-fit p-2 border-4 [border-style:outset] border-zinc-600">
     <span class="font-alagard text-titlecolor text-4xl font-semibold">Minesweeper</span>
-    <div class="flex flex-col items-center gap-4 border-4 [border-style:inset] border-zinc-600 p-2">
+    <div class="flex flex-col items-center gap-2 border-4 [border-style:inset] border-zinc-600 p-2">
         <div class="font-pixelsans text-zinc-200">Play Difficulty</div>
         <a href="/minesweeper/play/beginner" class="w-full">
-            <button class="font-pixelsans text-xl text-green-500  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[outline-style:inset] hover:bg-zinc-800" tabindex="-1">Beginner</button>
+            <button class="font-pixelsans text-xl text-green-500  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[border-style:inset] hover:bg-zinc-800" tabindex="-1">Beginner</button>
         </a>
         <a href="/minesweeper/play/intermediate" class="w-full">
-            <button class="font-pixelsans text-xl text-yellow-300  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[outline-style:inset] hover:bg-zinc-800" tabindex="-1">Intermediate</button>
+            <button class="font-pixelsans text-xl text-yellow-300  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[border-style:inset] hover:bg-zinc-800" tabindex="-1">Intermediate</button>
         </a>
         <a href="/minesweeper/play/expert" class="w-full">
-            <button class="font-pixelsans text-xl text-red-500  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[outline-style:inset] hover:bg-zinc-800" tabindex="-1">Expert</button>
+            <button class="font-pixelsans text-xl text-red-500  p-2 w-full border-4 [border-style:outset] border-zinc-600 active:[border-style:inset] hover:bg-zinc-800" tabindex="-1">Expert</button>
         </a>
     </div>
 </div>
