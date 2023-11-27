@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,37 +18,20 @@ body {
 
 
 @font-face {
-    font-family: 'Alagard';
-    font-style: normal;
-    font-weight: 400;
+    font-family: 'alagard';
     src: url('/minesweeper/fonts/alagard.ttf') format('truetype');
 
     font-smooth: never;
     -webkit-font-smoothing: none;
     text-rendering: geometricPrecision;
-
-    font-display: swap;
 }
 
 @font-face {
     font-family: 'Pixel Sans Serif';
-    font-style: normal;
-    font-weight: 400;
     src: url('/minesweeper/fonts/Pixel Sans Serif.ttf') format('truetype');
 
     font-smooth: never;
     -webkit-font-smoothing: none;
     text-rendering: geometricPrecision;
-
-    font-display: swap;
 }
-
-.font-alagard {
-    font-family: 'Alagard';
-}
-
-.font-pixelsans {
-    font-family: 'Pixel Sans Serif';
-}
-
 
