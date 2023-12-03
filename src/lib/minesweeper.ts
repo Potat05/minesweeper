@@ -46,6 +46,8 @@ export class Minesweeper extends EventDispatcher<{
                 const tile = this.get(x, y);
 
                 tile.minesNearby = this.tilesPattern(x, y).reduce((count, tile) => tile.isMine ? (count + 1) : count, 0);
+
+                if(tile.isMine) tile.minesNearby++;
             }
         }
 
@@ -87,6 +89,15 @@ export class Minesweeper extends EventDispatcher<{
 
 
 
+    private checkWin(): void {
+        if(this.state != 'playing') return;
+        
+        if(this.tiles.every(tile => tile.isMine ? tile.state == 'flagged' : tile.state == 'uncovered')) {
+            this._state = 'won';
+        }
+
+    }
+
     public toggleFlag(x: number, y: number): void {
         const tile = this.get(x, y);
 
@@ -94,9 +105,7 @@ export class Minesweeper extends EventDispatcher<{
 
         tile.state = tile.state == 'covered' ? 'flagged' : 'covered';
 
-        if(this.tiles.every(tile => tile.isMine ? tile.state == 'flagged' : true)) {
-            this._state = 'won';
-        }
+        this.checkWin();
 
         this.dispatchEvent('update', x, y, this);
 
@@ -112,6 +121,12 @@ export class Minesweeper extends EventDispatcher<{
         }
 
         tile.state = 'uncovered';
+
+        if(tile.minesNearby == 0) {
+            this.tilesPattern(x, y).forEach(({ x, y }) => this.uncover(x, y));
+        }
+
+        this.checkWin();
 
         this.dispatchEvent('update', x, y, this);
 
