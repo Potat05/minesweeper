@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Minesweeper } from "$lib/minesweeper";
-    import { onDestroy, onMount } from "svelte";
+    import { onDestroy } from "svelte";
 
     const width: number = 30;
     const height: number = 16;
@@ -54,6 +54,10 @@
         outline-offset: -2px;
     }
 
+    .clickable {
+        cursor: pointer;
+    }
+
 </style>
 
 <!-- Svelte is smart enough to know, that this may change many times in one instant. -->
@@ -69,16 +73,32 @@
                 <button
                     class="
                         w-8 h-8
-                        text-white text-2xl font-alagard font-bold
+                        text-white font-alagard font-bold
+                        {((game.state == 'lost' && tile.isMine) || tile.state == 'flagged') ? 'text-lg' : 'text-2xl'}
+                        {tile.state == 'uncovered' ? `text-nearby-${tile.minesNearby}` : ''}
                         bg-zinc-800 outline-4 -outline-offset-4 [outline-style:outset] outline-zinc-700
-                        text-nearby-{tile.minesNearby}
+                        cursor-default
                     "
                     class:uncovered={tile.state == 'uncovered'}
+                    class:clickable={
+                        game.state == 'playing' &&
+                        (
+                            tile.state == 'flagged' ||
+                            tile.state == 'covered' ||
+                            (
+                                tile.minesNearby > 0 &&
+                                game.tilesPattern(tile.x, tile.y).some(tile => tile.state == 'covered') &&
+                                tile.minesNearby == game.tilesPattern(tile.x, tile.y).reduce((flagged, tile) => tile.state == 'flagged' ? flagged + 1 : flagged, 0)
+                            )
+                        )
+                    }
                     title="x{tile.x} y{tile.y}"
                     on:click={() => {
+                        if(game?.state != 'playing') return;
                         game?.uncover(tile.x, tile.y);
                     }}
                     on:contextmenu={ev => {
+                        if(game?.state != 'playing') return;
                         ev.preventDefault();
                         game?.toggleFlag(tile.x, tile.y);
                     }}
@@ -87,9 +107,13 @@
                         🚩
                     {:else if tile.state == 'uncovered'}
                         {#if tile.isMine}
-                            💣
+                            💥
                         {:else}
                             {tile.minesNearby || ''}
+                        {/if}
+                    {:else}
+                        {#if game.state == 'lost' && tile.isMine}
+                            💣
                         {/if}
                     {/if}
                 </button>
