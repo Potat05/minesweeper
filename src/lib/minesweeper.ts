@@ -114,7 +114,22 @@ export class Minesweeper extends EventDispatcher<{
     public uncover(x: number, y: number): void {
         const tile = this.get(x, y);
 
-        if(tile.state != 'covered') return;
+        if(tile.state == 'uncovered') {
+
+            const nearby = this.tilesPattern(x, y);
+
+            if(tile.minesNearby == nearby.reduce((flags, tile) => (tile.state == 'flagged') ? (flags + 1) : flags, 0)) {
+                nearby.forEach(tile => {
+                    if(tile.state == 'covered') {
+                        this.uncover(tile.x, tile.y);
+                    }
+                })
+            }
+
+            return;
+        } else if(tile.state == 'flagged') {
+            return;
+        }
 
         if(tile.isMine) {
             this._state = 'lost';
