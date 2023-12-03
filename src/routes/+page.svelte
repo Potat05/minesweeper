@@ -22,7 +22,7 @@
             forceZeroAtPos: { x: startX, y: startY }
         });
 
-        game.addEventListener('update', (x, y) => {
+        game.addEventListener('update', () => {
             rerender++;
         });
 
@@ -38,6 +38,24 @@
 
 </script>
 
+<style lang="scss">
+
+    .text-nearby-1 { color: theme('colors.nearby.1'); }
+    .text-nearby-2 { color: theme('colors.nearby.2'); }
+    .text-nearby-3 { color: theme('colors.nearby.3'); }
+    .text-nearby-4 { color: theme('colors.nearby.4'); }
+    .text-nearby-5 { color: theme('colors.nearby.5'); }
+    .text-nearby-6 { color: theme('colors.nearby.6'); }
+    .text-nearby-7 { color: theme('colors.nearby.7'); }
+    .text-nearby-8 { color: theme('colors.nearby.8'); }
+
+    .uncovered {
+        outline: 2px solid theme('colors.zinc.700');
+        outline-offset: -2px;
+    }
+
+</style>
+
 <!-- Svelte is smart enough to know, that this may change many times in one instant. -->
 <!-- And so this correctly only updates once when needed. -->
 {#key rerender}
@@ -51,9 +69,11 @@
                 <button
                     class="
                         w-8 h-8
-                        text-white text-2xl font-alagard
-                        bg-zinc-800 outline-4 -outline-offset-4 [outline-style:outset] outline-zinc-800
+                        text-white text-2xl font-alagard font-bold
+                        bg-zinc-800 outline-4 -outline-offset-4 [outline-style:outset] outline-zinc-700
+                        text-nearby-{tile.minesNearby}
                     "
+                    class:uncovered={tile.state == 'uncovered'}
                     title="x{tile.x} y{tile.y}"
                     on:click={() => {
                         game?.uncover(tile.x, tile.y);
@@ -69,7 +89,7 @@
                         {#if tile.isMine}
                             💣
                         {:else}
-                            {tile.minesNearby}
+                            {tile.minesNearby || ''}
                         {/if}
                     {/if}
                 </button>
@@ -80,7 +100,7 @@
                     <button
                         class="
                             w-8 h-8
-                            bg-zinc-800 outline-4 -outline-offset-4 [outline-style:outset] outline-zinc-800
+                            bg-zinc-800 outline-4 -outline-offset-4 [outline-style:outset] outline-zinc-700
                         "
                         on:click={() => {
                             generateGame(x, y);
