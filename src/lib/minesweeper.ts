@@ -11,7 +11,8 @@ interface Tile {
 }
 
 export class Minesweeper extends EventDispatcher<{
-    'update': (x: number, y: number, game: Minesweeper) => void;
+    'tile_update': (x: number, y: number, game: Minesweeper) => void;
+    'state_update': (state: 'playing' | 'lost' | 'won', game: Minesweeper) => void;
 }> {
 
     private _state: 'playing' | 'lost' | 'won' = 'playing';
@@ -94,6 +95,7 @@ export class Minesweeper extends EventDispatcher<{
         
         if(this.tiles.every(tile => tile.isMine ? tile.state == 'flagged' : tile.state == 'uncovered')) {
             this._state = 'won';
+            this.dispatchEvent('state_update', this.state, this);
         }
 
     }
@@ -107,7 +109,7 @@ export class Minesweeper extends EventDispatcher<{
 
         this.checkWin();
 
-        this.dispatchEvent('update', x, y, this);
+        this.dispatchEvent('tile_update', x, y, this);
 
     }
 
@@ -133,6 +135,7 @@ export class Minesweeper extends EventDispatcher<{
 
         if(tile.isMine) {
             this._state = 'lost';
+            this.dispatchEvent('state_update', this.state, this);
         }
 
         tile.state = 'uncovered';
@@ -143,7 +146,7 @@ export class Minesweeper extends EventDispatcher<{
 
         this.checkWin();
 
-        this.dispatchEvent('update', x, y, this);
+        this.dispatchEvent('tile_update', x, y, this);
 
     }
 
