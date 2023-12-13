@@ -25,17 +25,32 @@
         }
     })();
 
+    let toBeFlagged: number = 0;
+
 </script>
 
-<SegmentDisplay number={Math.floor(currentTime / 1000)} />
-
-<Minesweeper
-    {width} {height} {numMines}
-    on:statechange={ev => {
-        if(ev.detail == 'playing') {
-            state = 'playing';
-        } else if(ev.detail == 'won' || ev.detail == 'lost') {
-            state = 'ended';
-        }
-    }}
-/>
+<div>
+    <div class="flex justify-center h-16 w-max">
+        <div class="flex">
+            <SegmentDisplay number={toBeFlagged} />
+        </div>
+        <div class="flex">
+            <SegmentDisplay number={Math.floor(currentTime / 1000)} />
+        </div>
+    </div>
+    
+    <Minesweeper
+        {width} {height} {numMines}
+        on:statechange={ev => {
+            console.log(ev);
+            if(ev.detail.state == 'playing') {
+                state = 'playing';
+            } else if(ev.detail.state == 'won' || ev.detail.state == 'lost') {
+                state = 'ended';
+            }
+        }}
+        on:tilechange={ev => {
+            toBeFlagged = ev.detail.game.numMines - ev.detail.game.numFlags;
+        }}
+    />
+</div>

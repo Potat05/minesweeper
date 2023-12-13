@@ -23,17 +23,18 @@
             forceZeroAtPos: { x: startX, y: startY }
         });
 
-        game.addEventListener('tile_update', () => {
+        game.addEventListener('tile_update', (x, y, game) => {
             rerender++;
+            dispatcher('tilechange', { x, y, game });
         });
 
-        game.addEventListener('state_update', state => {
-            dispatcher('statechange', state);
+        game.addEventListener('state_update', (state, game) => {
+            dispatcher('statechange', { state, game });
         });
 
         game.uncover(startX, startY);
 
-        dispatcher('statechange', 'playing');
+        dispatcher('statechange', { state: 'playing', game });
 
     }
 

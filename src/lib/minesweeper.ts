@@ -20,6 +20,16 @@ export class Minesweeper extends EventDispatcher<{
         return this._state;
     }
 
+    private getCount(callbackfn: (tile: Tile) => boolean): number {
+        return this.tiles.reduce((count, tile) => callbackfn(tile) ? ++count : count, 0);
+    }
+    public get numMines(): number {
+        return this.getCount(tile => tile.isMine);
+    }
+    public get numFlags(): number {
+        return this.getCount(tile => tile.state == 'flagged');
+    }
+
     public readonly width: number;
     public readonly height: number;
     public readonly tiles: Tile[];
